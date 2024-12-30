@@ -1,0 +1,13 @@
+gcc -Wall -c ctest1.c ctest2.c
+ar -cvq libctest.a ctest1.o ctest2.o
+ar -t libctest.a
+gcc -o static_prog prog.c libctest.a
+size static_prog
+
+
+shatred lib
+gcc -Wall -fPIC -c ctest1.c ctest2.c
+gcc -shared -o libctest.so ctest1.o ctest2.o
+export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+gcc -L . prog.c -lctest -o shared_prog
+size shared_prog

@@ -26,10 +26,24 @@ void ls_l(const char *path)
 
         if (stat(entry->d_name, &fileStat) < 0) continue;
 
-        
-        char type = (S_ISDIR(fileStat.st_mode)) ? 'd' : '-';
+        char type;
+        if (S_ISDIR(fileStat.st_mode))
+            type = 'd';
+        else if (S_ISREG(fileStat.st_mode))
+            type = '-';
+        else if (S_ISCHR(fileStat.st_mode))
+            type = 'c';
+        else if (S_ISBLK(fileStat.st_mode))
+            type = 'b';
+        else if (S_ISLNK(fileStat.st_mode))
+            type = 'l';
+        else if (S_ISFIFO(fileStat.st_mode))
+            type = 'p';
+        else if (S_ISSOCK(fileStat.st_mode))
+            type = 's';
+        else
+            type = '?';
 
-        
         char perms[10];
         perms[0] = (fileStat.st_mode & S_IRUSR) ? 'r' : '-';
         perms[1] = (fileStat.st_mode & S_IWUSR) ? 'w' : '-';
