@@ -45,15 +45,17 @@ void *consumer(void *arg) {
 }
 
 int main() {
-    pthread_t producers[2], consumers[2];
-    int ids[2] = {1, 2};
+    pthread_t producers[5], consumers[2];
+    int ids[5] = {1, 2,3,4,5};
 
     sem_init(&empty, 0, BUFFER_SIZE);
     sem_init(&full, 0, 0);
     pthread_mutex_init(&mutex, NULL);
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
+
         pthread_create(&producers[i], NULL, producer, &ids[i]);
+        if(i<2)
         pthread_create(&consumers[i], NULL, consumer, &ids[i]);
     }
 

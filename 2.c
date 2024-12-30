@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     if (pid == 0) {
         printf("Child PID: %d, Parent PID: %d\n", getpid(), getppid());
-        execl("./binsearch", argv[1], NULL);
+        execl("./a.out", argv[1], NULL);
         exit(1); 
     }
 
