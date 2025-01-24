@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     if (pid == 0) {
         printf("Child PID: %d, Parent PID: %d\n", getpid(), getppid());
-        execl("./a.out", argv[1], NULL);
+        execlp("/bin/ls","ls", "-la",NULL);
         exit(1); 
     }
 
